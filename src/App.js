@@ -1,22 +1,38 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+
+const Machine = {
+  home: {
+    NEXT: 'projects',
+    PREV: 'contact'
+  },
+  projects: {
+    NEXT: 'about',
+    PREV: 'home'
+  },
+  about: {
+    NEXT: 'contact',
+    PREV: 'projects'
+  },
+  contact: {
+    NEXT: 'home',
+    PREV: 'about'
+  },
+};
+
+
+const App = () => {
+  const [state, setState] = useState({ page: 'home' });
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <h1>{state.page}</h1>
+      <div>
+        <button onClick={() => setState({ page: Machine[state.page]['PREV'] })}>PREV</button>
+        <button onClick={() => setState({ page: Machine[state.page]['NEXT'] })}>NEXT</button>
+      </div>
       </header>
     </div>
   );
